@@ -1,5 +1,4 @@
-import 'package:logto_dart_sdk/logto_dart_sdk.dart';
-import 'package:http/http.dart' as http;
+/*import 'package:logto_dart_sdk/logto_dart_sdk.dart';
 
 class AuthSingleton {
   LogtoClient? _logtoClient;
@@ -22,7 +21,7 @@ class AuthSingleton {
 
   void signIn() async {
     assert(_logtoClient != null);
-    await _logtoClient!.signIn('de.triskalion.bads://callback');
+    await _logtoClient!.signIn('trigger://callback');
   }
 
   void signOut() async {
@@ -31,4 +30,4 @@ class AuthSingleton {
   }
 
   Future<bool> get isAuthenticated async => await _logtoClient!.isAuthenticated;
-}
+}*/

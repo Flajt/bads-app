@@ -38,14 +38,31 @@ dependencies:
   logto_dart_sdk: ^1.2.0
   flutter_secure_storage: ^9.1.1
   flutter_web_auth: ^0.5.0
-  http: ^1.2.0
+  http: ^1.2.1
   flutter_bloc: ^8.1.5
   equatable: ^2.0.5
   get_it: ^7.7.0
-
+  sqflite: ^2.3.3+1
+  isar:
+    hosted: https://pub.isar-community.dev
+    version: ^3.1.7
+  isar_flutter_libs:
+    hosted: https://pub.isar-community.dev
+    version: ^3.1.7
+  path_provider: ^2.1.3
+  dart_dash_otp: ^1.3.4
+  murmur3: ^2.1.0
+  workmanager: ^0.5.2
+  url_launcher: ^6.2.6
+  hashlib_codecs: ^2.4.0
+  app_links: ^6.1.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  build_runner: ^2.4.9
+  isar_generator: 
+    version: ^3.1.7
+    hosted: https://pub.isar-community.dev/
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
