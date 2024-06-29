@@ -26,7 +26,8 @@ class UserAdTopicManger {
   }
 
   Future<void> saveAdTopics(List<AdTopic> adTopics) async {
-    await db.saveAdTopics(adTopics);
+    await db
+        .saveAdTopics(adTopics); // O(n) time complexity (n = number of topics)
   }
 
   Future<void> saveAdTopic(AdTopic adTopic) async {

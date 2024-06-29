@@ -41,6 +41,7 @@ class BloomFilter {
 
   Future<void> addEntry(data) async {
     for (var i = 0; i < bloomFilterHashes; i++) {
+      // O(k) time complexity
       final hash = await murmur3_32(data) % bloomFilterSize;
       bloomFilter[hash] = 1;
     }

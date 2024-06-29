@@ -23,7 +23,7 @@ class AgeRandomizer implements IRandomizer<AgeGroup> {
   @override
   AgeGroup pickRandomValue(List<AgeGroup> data, AgeGroup inital) {
     final random = Random.secure();
-    if (random.nextDouble() > triggerChance) {
+    if (random.nextDouble() <= triggerChance) {
       return data[random.nextInt(data.length)];
     }
     return inital;

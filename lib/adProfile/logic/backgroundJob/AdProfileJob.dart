@@ -41,24 +41,35 @@ class AdProfileJob {
   }
   Future<List<AdProfileModel>> createProfiles() async {
     List<AdProfileModel> models = [];
-    List<AdTopic> topics = await userAdTopicManger.getTopAdTopics();
-    final userAgeGroup =
-        ageRandomizer.pickRandomValue(AgeGroup.values, AgeGroup.age_18_27);
-    List<AdTopic> randomTopics = adTopicRandomizer.pickRandomAmount(topics, 5);
-    List<BloomFilter> filters = await bloomProfileCreator.generateBloomProfiles(
-        randomTopics, userAgeGroup);
+    List<BloomFilter> filters = [];
     List<String> ids = await idService.generateIDs();
-    if (topics.isEmpty && filters.isNotEmpty) {
-      await userAdTopicManger.saveAdTopics(randomTopics);
+    List<AdTopic> topics = await userAdTopicManger
+        .getTopAdTopics(); // Time: O(log(n))? Hard to quantify since it#s a db call
+    for (int i = 0; i < 3; i++) {
+      // Time complexity O(1), since it's a constant
+      final userAgeGroup = ageRandomizer.pickRandomValue(AgeGroup.values,
+          AgeGroup.age_18_27); // Time complexity O(1) & space complexity O(1)
+      List<AdTopic> randomTopics =
+          adTopicRandomizer.pickRandomAmount(topics, 5);
+      BloomFilter filter = await bloomProfileCreator.generateBloomProfile(
+          randomTopics, userAgeGroup);
+      if (topics.isEmpty) {
+        await userAdTopicManger
+            .saveAdTopics(randomTopics); // O(n) time complexity
+        topics = randomTopics;
+      }
+      filters.add(filter);
     }
     for (final f in filters) {
-      final currentIndex = filters.indexOf(f);
+      // Time complexity O(k) / O(1), where k is the number of filters, which is a constant of three
+      final currentIndex = filters
+          .indexOf(f); // Time complexity O(1), since the list size is constant
       models.add(AdProfileModel(
           identifier: ids[currentIndex],
           bloomFilter: f.bloomFilter,
           numHashFunctions: f.bloomFilterHashes));
     }
-    return models;
+    return models; //O(1), since there will only be three statements returned
   }
 
   Future<List<String>> createInteractedAdIds() async =>

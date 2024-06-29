@@ -16,28 +16,29 @@ class BloomProfileCreator {
   // Generates the three different bloom filters which represent the users interest
   //
   // It also performs additional anonymization
-  Future<List<BloomFilter>> generateBloomProfiles(
+  Future<BloomFilter> generateBloomProfile(
       List<AdTopic> topics, AgeGroup userAgeGroup) async {
-    List<BloomFilter> bloomFilters = [];
-    for (int i = 0; i < 3; i++) {
-      // 3 is chosen to generate 3 different user profiles
-      BloomFilter bloomFilter = BloomFilter.fromDesiredAccuracy(
-          bloomFilterAccuracy, numBloomFilterEntries);
-      final categories = topics.map((e) => e.category).toList();
-      Set<dynamic> preppedcategories = {};
-      for (String category in categories) {
-        List<String> subCategories = category.split("/");
-        if (subCategories.contains("")) {
-          subCategories.remove("");
-        }
-        preppedcategories.addAll(subCategories);
+    final categories = topics
+        .map((e) => e.category)
+        .toList(); // Time and space complexity O(1) / O(k), since it doesn't change, it's constant
+    // Time complexity O(1), since it's a constant
+    BloomFilter bloomFilter = BloomFilter.fromDesiredAccuracy(
+        bloomFilterAccuracy, numBloomFilterEntries); // O(k) space complexity
+    Set<dynamic> preppedcategories = {};
+    for (String category in categories) {
+      // Time complexity O(k) / O(1), since it's a constant as well
+      List<String> subCategories = category.split("/");
+      if (subCategories.contains("")) {
+        subCategories.remove("");
       }
-      preppedcategories.add(userAgeGroup.index);
-      for (var category in preppedcategories) {
-        await bloomFilter.addEntry(category);
-      }
-      bloomFilters.add(bloomFilter);
+      preppedcategories.addAll(subCategories);
     }
-    return bloomFilters;
+    preppedcategories.add(userAgeGroup.index);
+    for (var category in preppedcategories) {
+      // Time complexity O(k) / O(1), since it's a constant as well, there are approx. 13 entries + the age group
+      await bloomFilter.addEntry(
+          category); // O(k) / O(1) time complexity, depending on the number of hash functions, however, O(1) space complexity
+    }
+    return bloomFilter; // O(1) since there will only be three statements returned
   }
 }
