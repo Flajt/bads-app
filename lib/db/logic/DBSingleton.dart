@@ -81,7 +81,8 @@ class DBSingleton {
       throw Exception("DB not initialized");
     }
     await _db!.writeTxn(() async {
-      await _db!.interactedAdModels.putAll(ads);
+      await _db!.interactedAdModels
+          .putAll(ads); // O(1) time complexity?, hard to quantify
     });
   }
 

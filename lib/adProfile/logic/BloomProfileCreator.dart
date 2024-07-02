@@ -26,11 +26,9 @@ class BloomProfileCreator {
         bloomFilterAccuracy, numBloomFilterEntries); // O(k) space complexity
     Set<dynamic> preppedcategories = {};
     for (String category in categories) {
-      // Time complexity O(k) / O(1), since it's a constant as well
+      // Time complexity O(k) / O(1), since it's a constant as well, space should be O(k) / O(1), since it's not input dependant and will always have the same size
       List<String> subCategories = category.split("/");
-      if (subCategories.contains("")) {
-        subCategories.remove("");
-      }
+      subCategories.remove("");
       preppedcategories.addAll(subCategories);
     }
     preppedcategories.add(userAgeGroup.index);
