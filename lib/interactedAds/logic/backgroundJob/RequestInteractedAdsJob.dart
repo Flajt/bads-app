@@ -29,14 +29,14 @@ class RequestInteractedAdsJob {
         "$url?user_ids=${ids.join(",")}")); // O(1) network requests are always constant time, worst case O(k)
     if (resp.statusCode == 200) {
       final List<dynamic> jsonData = jsonDecode(resp.body)[
-          "interacted_ads"]; // Time: O(1)?, Space: O(1) best case, however since each of the three ids can hold up to n interactions, worst case O(n)
+          "interacted_ads"]; // Time: O(1), Space: O(1) best case, however since each of the three ids can hold up to n interactions, worst case O(n)
       List<InteractedAdModel> interactedModels =
           []; //Space Copmlexity: Best case O(1), worst case O(n)
       if (jsonData.isNotEmpty) {
         for (final mergedInteractions in jsonData) {
-          //Time: O(1) since there are only 3, Space: O(1)
+          //Time: O(1) since there are only 3, Space: O(3+n), due to the fact that the list can hold up to n interactions
           for (final interaction in mergedInteractions["interactions"]) {
-            // Time: best case O(1), worst case O(n)
+            // Time: best case O(1), worst / average case O(n)
             interactedModels.add(InteractedAdModel.fromJson(
                 mergedInteractions["ad"], interaction)); //Space: O(1)
           }
