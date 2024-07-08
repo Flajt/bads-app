@@ -41,6 +41,7 @@ class IDService {
     int counter = int.parse(secretComponents[1]);
     final IDGenerator idGenerator = IDGenerator(secret: secret);
     for (int i = 0; i < _amount; i++) {
+      // O(k) space and time
       String id = idGenerator.generateId(counter);
       ids.add(id);
       counter++;
@@ -71,7 +72,7 @@ class IDService {
     List secretComponents = rawSecret.split("::"); // Space O(k), Time O(1)
     String secret = secretComponents[0]; // Space O(1), Time O(1)
     int counter = int.parse(secretComponents[1]) -
-        3; // We want to fetch the last 3 ids, not the next 3| Time O(1), Space O(1)
+        3; // We want to fetch the last 3 ids, not the next 3 Time O(1), Space O(1)
     final IDGenerator idGenerator = IDGenerator(secret: secret); // Space O(1)
     for (int i = 0; i < _amount; i++) {
       // Time O(k)

@@ -15,17 +15,18 @@ import 'package:workmanager/workmanager.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await register();
-  await Workmanager().initialize(profileJobDispatcher, isInDebugMode: true);
-  await Workmanager().registerPeriodicTask(
-      "ad-profile-generation", "ad-profile-generation",
-      constraints: Constraints(networkType: NetworkType.connected),
-      frequency: const Duration(days: 1));
   await Workmanager().initialize(requestInteractedAdsJob, isInDebugMode: true);
   await Workmanager().registerPeriodicTask(
       "interacted-ads-fetch", "interacted-ads-fetch",
       initialDelay: const Duration(minutes: 2),
       constraints: Constraints(networkType: NetworkType.connected),
       frequency: const Duration(days: 1, minutes: 2));
+  await Workmanager().initialize(profileJobDispatcher, isInDebugMode: true);
+  await Workmanager().registerPeriodicTask(
+      "ad-profile-generation", "ad-profile-generation",
+      constraints: Constraints(networkType: NetworkType.connected),
+      frequency: const Duration(days: 1),
+      initialDelay: const Duration(seconds: 10));
   LinkHandler().registerListener();
   runApp(const MyApp());
 }

@@ -9,7 +9,7 @@ enum SecretType { PROFILE, INTERACTION }
 class SecretService {
   final FlutterSecureStorage secureStorage = const FlutterSecureStorage();
 
-  generateBase32Secret() {
+  String generateBase32Secret() {
     // Generate a random secret
     Random random = Random.secure();
     List<int> secret = List<int>.generate(20, (i) => random.nextInt(256));

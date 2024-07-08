@@ -9,7 +9,6 @@ import 'package:app/anonymousID/logic/IDService.dart';
 import 'package:app/anonymousID/logic/SecretService.dart';
 import 'package:app/const.dart';
 import 'package:app/db/models/AdTopic.dart';
-import 'package:app/db/models/InteractedAdModel.dart';
 import 'package:app/home/logic/UserAdTopicManager.dart';
 import 'package:app/register.dart';
 import 'package:get_it/get_it.dart';
