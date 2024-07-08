@@ -2,8 +2,13 @@
 
 App for the bads project, allows users to controll their ad topics settings.
 
-
-
+<p float="left">
+<img src="./1.jpeg" alt="Current user categories" width="20%">
+<img src="./2.jpeg" alt="Category selector to allow user controll" width="20%">
+<img src="./3.jpeg" alt="This app is powered by Bads, connection Dialog" width="20%">
+<img src="./4.jpeg" alt="Demo Flutter counter app with small test ad" width="20%">
+<img src="./5.jpeg" alt="Ads viewed by the user" width="20%">
+<div/>
 
 ## Run it
 
